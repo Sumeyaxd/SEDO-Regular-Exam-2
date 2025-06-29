@@ -1,23 +1,18 @@
-
-
-name: Buld and test Horizons
+name: Build and test Horizons
 
 on:
   push:
-    branches: 
-
-    - develop
-    - feature
-
+    branches:
+      - develop
+      - feature
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout the repository
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
