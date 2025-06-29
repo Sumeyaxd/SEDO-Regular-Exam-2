@@ -2,13 +2,23 @@ pipeline {
     agent any
 
     environment {
-        PATH = "/usr/local/share/dotnet:${env.PATH}"
+        DOTNET_ROOT = "${HOME}/.dotnet"
+        PATH = "${HOME}/.dotnet:${env.PATH}"
     }
 
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+            }
+        }
+        stage('Install .NET 8') {
+            steps {
+                sh '''
+                    curl -sSL https://dot.net/v1/dotnet-install.sh -o dotnet-install.sh
+                    chmod +x dotnet-install.sh
+                    ./dotnet-install.sh --channel 8.0
+                '''
             }
         }
         stage('Restore the project') {
